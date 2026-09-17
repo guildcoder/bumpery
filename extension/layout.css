@@ -1,0 +1,40 @@
+/* The playfield owns the viewport; controls use the space around it. */
+body[data-table]{height:100dvh;overflow:hidden}
+.parlor{position:relative;max-width:none;width:100%;height:100dvh;gap:0;padding:0}
+.masthead h1,.masthead .maker,.masthead p,.footnote{display:none}
+.masthead{position:absolute;top:env(safe-area-inset-top);left:max(10px,env(safe-area-inset-left));z-index:4;align-self:auto;text-align:left}
+.back-to-lobby{min-height:44px;font-size:14px;margin:0}
+#game-menu{position:absolute;z-index:8;right:max(8px,env(safe-area-inset-right));top:env(safe-area-inset-top);height:44px;min-width:44px;background:#11232de8;border:1px solid #b5985c55;border-radius:8px;color:#ead6ac;font-size:22px}
+.toolbar{display:none;position:absolute;z-index:7;right:max(8px,env(safe-area-inset-right));top:calc(env(safe-area-inset-top) + 50px);width:min(340px,calc(100vw - 16px));grid-template-columns:repeat(3,1fr);gap:6px;margin:0;padding:12px;border:1px solid #b5985c77;border-radius:12px;background:#0e202cf5;box-shadow:0 12px 30px #0008}
+.menu-open .toolbar{display:grid}.toolbar button{min-height:46px;min-width:44px;margin:0;padding:8px;font-size:12px}
+#guide{position:absolute;z-index:9;inset:auto 12px calc(env(safe-area-inset-bottom) + 90px);max-height:55dvh;padding:16px;background:#0c1c29;border:1px solid #b5985c;border-radius:12px;overflow:auto}
+.mission{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;border:0}
+.machine{filter:none;max-height:none;max-width:none;width:100%;height:100%;min-height:0;min-width:0}
+.overlay-card{max-height:95%;overflow:auto}.overlay{z-index:2}
+@media(max-width:599px){
+ .parlor{grid-template-columns:minmax(0,1fr);grid-template-rows:calc(44px + env(safe-area-inset-top)) minmax(0,1fr) auto}
+ .dashboard{grid-column:1;grid-row:1;align-self:stretch;width:100%;padding:env(safe-area-inset-top) 62px 0 106px;border:0;display:flex;justify-content:space-between;gap:8px}
+ .score-block .label{display:none}#score{font-size:24px;margin:0;letter-spacing:-1px}.secondary{margin:0;gap:0}.secondary>div:first-child{display:none}.secondary .label{font-size:7px;letter-spacing:.6px}.secondary output{font-size:13px;margin:0}.secondary small{font-size:10px}
+ .machine{grid-column:1;grid-row:2}
+ .console{grid-column:1;grid-row:3;width:100%;padding:0 max(6px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left))}
+ .cabinet{height:24px;min-height:24px;margin:0 0 3px;padding:2px 7px;border-radius:4px;gap:6px;background:#0b202b}
+ .cabinet-screen{height:18px;flex-basis:30px}.cabinet-ship{width:28px;left:0;top:4px}.cabinet-stars{font-size:9px}.cabinet-caption{font-size:10px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cabinet-caption small{display:none}.cabinet-level{align-self:center;font-size:8px}
+ .controls{margin:0;gap:6px;grid-template-columns:1fr .85fr .65fr 1fr}.controls button{height:54px;min-height:54px;border-radius:9px;font-size:24px}.controls button span{display:inline;font-size:9px;margin:0 0 0 5px}#launch{font-size:12px}#launch span{display:block;margin:3px 0 0;font-size:8px}
+}
+@media(min-width:600px){
+ .parlor{grid-template-columns:minmax(88px,1fr) minmax(0,calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 8px)*6/11)) minmax(88px,1fr);grid-template-rows:minmax(0,1fr);padding:max(4px,env(safe-area-inset-top)) max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left))}
+ .machine{grid-column:2;grid-row:1}
+ .dashboard{grid-area:auto;position:absolute;top:calc(env(safe-area-inset-top) + 65px);left:max(10px,env(safe-area-inset-left));width:clamp(76px,calc((100vw - 100dvh*6/11)/2 - 20px),240px);border:0;padding:0;display:block}
+ #score{font-size:clamp(18px,2.8vw,40px);margin-top:5px}.secondary{display:flex;flex-direction:column;gap:24px;margin-top:28px}.secondary output{font-size:18px}.label{font-size:8px;letter-spacing:1px}
+ .console{display:contents}
+ .cabinet{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(env(safe-area-inset-top) + 65px);width:clamp(76px,calc((100vw - 100dvh*6/11)/2 - 20px),260px);min-height:80px;margin:0;padding:8px;display:block}
+ .cabinet-screen{display:block;width:58px;height:32px;margin-bottom:5px}.cabinet-caption{font-size:10px;line-height:1.5}.cabinet-caption small{font-size:8px;margin-top:8px}.cabinet-level{display:block;margin-top:10px}
+ .controls{display:contents}.controls button{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 14px);width:clamp(70px,9vw,150px);height:72px;min-height:72px;border-radius:14px;font-size:28px}
+ #left{left:max(10px,env(safe-area-inset-left))}#right{right:max(10px,env(safe-area-inset-right))}
+ #launch{right:max(10px,env(safe-area-inset-right));bottom:calc(env(safe-area-inset-bottom) + 98px);height:56px;min-height:56px;font-size:12px}
+ .controls button span{display:block;font-size:9px;margin:4px 0 0}
+}
+@media(min-width:600px) and (max-height:500px){.dashboard{top:50px}.secondary{flex-direction:row;gap:15px;margin-top:12px}.cabinet{top:50px;min-height:60px}.cabinet-caption small{display:none}.cabinet-level{margin-top:4px}.overlay-card{padding:15px}.overlay-card h2{font-size:25px;margin:12px 0}.overlay-card .label,.overlay-hint{display:none}.overlay-card p{font-size:11px}.primary{margin:8px 0;padding:10px}}
+
+#nudge{font:12px system-ui,sans-serif;letter-spacing:0}
+@media(min-width:600px){#nudge{left:max(10px,env(safe-area-inset-left));bottom:calc(env(safe-area-inset-bottom) + 98px);height:56px;min-height:56px}}

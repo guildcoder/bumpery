@@ -27,3 +27,9 @@
 - End-to-end offline browser navigation: automation stalled, although the offline worker's cache routing and isolation tests pass. Do not count the stalled browser operation as a pass.
 
 Published at https://guildcoder.github.io/bumpery/ from the public https://github.com/guildcoder/bumpery repository. The release uses main to satisfy the existing GitHub Pages environment branch rule.
+
+## Immersive layout update
+- Phone 390×844: canvas receives 390×713 pixels, no document overflow; table remains proportional and fully visible. Compact score bar, 54px controls, and a separate nudge button remain available.
+- iPad 768×1024: table uses nearly the entire viewport height, with scores and thumb controls in side space. Landscape layout checked at 1024×768.
+- Opening the game menu pauses play; Resume closes it and restores play. Guide, sound, fullscreen/install, and scores remain accessible in the menu.
+- Safe-area padding and dynamic viewport height support Safari chrome and installed web apps; physical-device testing remains pending.

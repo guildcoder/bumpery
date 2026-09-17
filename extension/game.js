@@ -16,7 +16,7 @@
   try{pendingScore=JSON.parse(read('starbound.pending','null'));}catch{}
   const callsign=read('starbound.nickname','');$('nickname').value=callsign;
   const scoresButton=document.createElement('button');scoresButton.id='scores';scoresButton.textContent='☆ Scores';document.querySelector('.toolbar').append(scoresButton);
-  const nudgeButton=document.createElement('button');nudgeButton.id='nudge';nudgeButton.textContent='↟ Nudge';document.querySelector('.toolbar').prepend(nudgeButton);
+  const nudgeButton=document.createElement('button');nudgeButton.id='nudge';nudgeButton.textContent='↟ Nudge';document.querySelector('.controls').insertBefore(nudgeButton,$('right'));
   const shareButton=document.createElement('button');shareButton.id='share-score';shareButton.className='quiet-button';shareButton.textContent='View leaderboard / post score';shareButton.hidden=true;$('start').after(shareButton);
   const touch=matchMedia('(pointer: coarse)').matches;
   if(touch)$('launch').querySelector('span').textContent='HOLD & RELEASE';
@@ -53,8 +53,8 @@
   function updateBest(){if(game.score>best){best=game.score;write('starbound.best',best);}}
   function showOverlay(kicker,title,copy,button){$('overlay-kicker').textContent=kicker;$('overlay-title').innerHTML=title;$('overlay-copy').innerHTML=copy;$('start').textContent=button;$('overlay').hidden=false;}
   function clearInputs(){game.input.left=false;game.input.right=false;game.input.launch=false;game.charge=0;for(const id of ['left','right','launch'])$(id).classList.remove('held');held.clear();}
-  function setPause(value){if(game.state==='ready'||game.state==='over')return;paused=value;clearInputs();accumulator=0;$('pause').textContent=paused?'▶ Resume':'Ⅱ Pause';shareButton.hidden=true;if(paused){updateBest();showOverlay('TAKE A BREATH','The universe<br>can wait.','Your voyage is paused.<br>Resume when you’re ready.','Resume voyage ↗');}else{$('overlay').hidden=true;unlockAudio();}}
-  function start(){unlockAudio();if(paused){setPause(false);$('start').blur();return;}runGeneration++;runPromise=leaderboard.begin().catch(()=>null);game.start();show.reset();paused=false;accumulator=0;renderer.effects=[];renderer.trail=[];shareButton.hidden=true;$('overlay').hidden=true;$('pause').textContent='Ⅱ Pause';$('start').blur();}
+  function setPause(value){if(game.state==='ready'||game.state==='over')return;if(!value)closeMenu();paused=value;clearInputs();accumulator=0;$('pause').textContent=paused?'▶ Resume':'Ⅱ Pause';shareButton.hidden=true;if(paused){updateBest();showOverlay('TAKE A BREATH','The universe<br>can wait.','Your voyage is paused.<br>Resume when you’re ready.','Resume voyage ↗');}else{$('overlay').hidden=true;unlockAudio();}}
+  function start(){closeMenu();unlockAudio();if(paused){setPause(false);$('start').blur();return;}runGeneration++;runPromise=leaderboard.begin().catch(()=>null);game.start();show.reset();paused=false;accumulator=0;renderer.effects=[];renderer.trail=[];shareButton.hidden=true;$('overlay').hidden=true;$('pause').textContent='Ⅱ Pause';$('start').blur();}
   function prepareForm(){const eligible=Boolean(pendingScore?.id&&pendingScore.score>0&&leaderboard.configured);$('score-form').hidden=!eligible;if(eligible)$('submit-summary').textContent=`Post your completed voyage: ${format(pendingScore.score)} points.`;}
   async function finishRankedRun(){
     const generation=runGeneration,score=game.score,seconds=Math.floor(game.time*1000)/1000;
@@ -108,6 +108,8 @@
     const cancel=e=>{held.delete(name+':pointer'+e.pointerId);game.input[name]=[...held].some(s=>s.startsWith(name+':'));button.classList.toggle('held',game.input[name]);if(name==='launch'&&!game.input.launch)game.charge=0;};
     button.addEventListener('pointercancel',cancel);button.addEventListener('lostpointercapture',cancel);
   }
+  function closeMenu(){document.body.classList.remove('menu-open');$('game-menu').setAttribute('aria-expanded','false');$('guide').hidden=true;$('help').setAttribute('aria-expanded','false');}
+  $('game-menu').addEventListener('click',()=>{const open=!document.body.classList.contains('menu-open');if(open)setPause(true);else closeMenu();document.body.classList.toggle('menu-open',open);$('game-menu').setAttribute('aria-expanded',String(open));});
   $('start').addEventListener('click',start);$('pause').addEventListener('click',()=>setPause(!paused));$('sound').addEventListener('click',toggleSound);
   nudgeButton.addEventListener('click',()=>{if(!paused){unlockAudio();game.nudge();}});
   $('sound').textContent=muted?'♪ Sound off':'♪ Sound on';$('sound').setAttribute('aria-pressed',String(!muted));
