@@ -1,0 +1,6 @@
+// Optional local development preview. Playing the extension needs no server.
+const http=require('node:http');const fs=require('node:fs');const path=require('node:path');
+// Usage: node tools/preview.cjs [extension|dist] [port] [/optional-repo-path/]
+const root=path.resolve(__dirname,'..',process.argv[2]||'extension'),port=Number(process.argv[3]||8765),base=process.argv[4]||'/';
+const types={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.png':'image/png','.webmanifest':'application/manifest+json'};
+http.createServer((req,res)=>{let file;try{const route=decodeURIComponent(new URL(req.url,'http://localhost').pathname);if(!route.startsWith(base)){res.writeHead(404).end();return;}file=path.resolve(root,route.slice(base.length)||'.');}catch{res.writeHead(400).end();return;}if(file===root)file=path.join(root,fs.existsSync(path.join(root,'index.html'))?'index.html':'game.html');if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{if(err){res.writeHead(404).end();return;}res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream','Content-Security-Policy':"script-src 'self'; object-src 'none';",'Cache-Control':'no-store'});res.end(data);});}).listen(port,'127.0.0.1',()=>console.log(`Preview: http://127.0.0.1:${port}${base}`));

@@ -1,0 +1,18 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+function client(responses,stored=null){
+  const requests=[],storage=new Map();if(stored)storage.set('starbound.session',JSON.stringify(stored));
+  const context={module:{exports:{}},AbortController,setTimeout,clearTimeout,localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},fetch:async(url,options)=>{requests.push({url,...options,body:JSON.parse(options.body)});const response=responses.shift();if(response instanceof Error)throw response;return{ok:response.ok!==false,status:response.status||200,json:async()=>response.data};}};
+  vm.runInNewContext(fs.readFileSync('extension/leaderboard.js','utf8'),context);
+  const instance=new context.module.exports.Leaderboard({supabaseUrl:'https://sample.supabase.co',supabasePublishableKey:'sb_publishable_example'});return{instance,requests,storage};
+}
+test('public board fetch never creates an anonymous player',async()=>{const {instance,requests}=client([{data:[{rank:1,nickname:'Pilot',score:1000}]}]);const rows=await instance.top();assert.equal(rows[0].score,1000);assert.equal(requests.length,1);assert.match(requests[0].url,/rpc\/starbound_leaderboard$/);assert.equal(requests[0].headers.Authorization,undefined);});
+test('anonymous run and score share a player token; session persists',async()=>{
+  const {instance,requests,storage}=client([{data:{access_token:'player-token',refresh_token:'refresh-token',expires_in:3600}},{data:'run-uuid'},{data:{accepted:true}}]);
+  const id=await instance.begin();assert.equal(id,'run-uuid');await instance.submit({id,score:1250,seconds:90},' Astro ');
+  assert.equal(requests[0].url,'https://sample.supabase.co/auth/v1/signup');assert.equal(requests[1].headers.Authorization,'Bearer player-token');assert.equal(requests[2].headers.Authorization,'Bearer player-token');assert.deepEqual(JSON.parse(JSON.stringify(requests[2].body)),{p_run_id:'run-uuid',p_nickname:'Astro',p_score:1250,p_seconds:90});assert.ok(storage.has('starbound.session'));
+});
+test('expired session is refreshed before submission',async()=>{const {instance,requests}=client([{data:{access_token:'renewed',refresh_token:'next',expires_in:3600}},{data:{accepted:true}}],{access_token:'expired',refresh_token:'previous',expires_at:1});await instance.submit({id:'run',score:100,seconds:30},'Pilot');assert.match(requests[0].url,/grant_type=refresh_token/);assert.equal(requests[0].body.refresh_token,'previous');assert.equal(requests[1].headers.Authorization,'Bearer renewed');});
+test('failed token refresh does not silently invent a new player',async()=>{const {instance,requests}=client([{ok:false,status:400,data:{message:'Refresh token expired'}}],{access_token:'expired',refresh_token:'previous',expires_at:1});await assert.rejects(()=>instance.begin(),/expired/);assert.equal(requests.length,1);});
+test('network failure is surfaced for retry, not reported as success',async()=>{const {instance}=client([new Error('Offline')]);await assert.rejects(()=>instance.top(),/Offline/);});
+test('unconfigured board is honest; offline games cannot be posted',async()=>{const {instance,requests}=client([]);instance.url='';assert.equal(await instance.begin(),null);await assert.rejects(()=>instance.top(),/not connected/);await assert.rejects(()=>instance.submit({score:100},'Pilot'),/started offline/);assert.equal(requests.length,0);});
+test('invalid public nickname is rejected before any network request',async()=>{const {instance,requests}=client([]);await assert.rejects(()=>instance.submit({id:'run'},'<script>'),/2–16/);assert.equal(requests.length,0);});

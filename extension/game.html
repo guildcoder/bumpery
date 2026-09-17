@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b1926"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Bumpery">
+<meta name="description" content="A pocket-sized celestial pinball machine. Play offline, chase the stars, and share your best voyage.">
+<link rel="manifest" href="app.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<title>Starbound Parlor · Bumpery</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="game.css">
+<script src="tables.js" defer></script><script src="config.js" defer></script><script src="leaderboard.js" defer></script><script src="physics.js" defer></script><script src="renderer.js" defer></script><script src="showtime.js" defer></script><script src="game.js" defer></script><script src="pwa.js" defer></script>
+</head>
+<body data-table="starbound-parlor"><main class="parlor">
+<header class="masthead"><a class="back-to-lobby" href="index.html">↖ Bumpery</a><h1>Starbound <em>Parlor</em></h1></header>
+<section class="dashboard" aria-label="Scoreboard"><div class="score-block"><span class="label">YOUR VOYAGE</span><output id="score">000,000</output></div><div class="secondary"><div><span class="label">PERSONAL BEST</span><output id="best">000,000</output></div><div><span class="label">BALL</span><output id="ball-count">01 <small>/ 03</small></output></div></div></section>
+<section class="machine" aria-label="Pinball table"><canvas id="table" width="600" height="1100" aria-label="Space pinball. Use left and right arrows for flippers and hold then release Space to launch."></canvas><div id="overlay" class="overlay"><div class="overlay-card"><span class="label" id="overlay-kicker">YOUR ADVENTURE AWAITS</span><h2 id="overlay-title">Find your way<br>back to the stars.</h2><p id="overlay-copy">Light the three navigation beacons.<br>Reach the observatory. Bring it home.</p><button id="start" class="primary">Begin voyage <span>↗</span></button><span class="overlay-hint">THREE BALLS · ONE UNIVERSE</span></div></div></section>
+<aside class="console"><div class="mission"><span class="label">TRANSMISSION <i></i></span><p id="message" role="status" aria-live="polite">Welcome aboard, voyager.</p><div class="beacons" aria-label="Navigation beacons"><span id="beacon-0">01 · SOL</span><span id="beacon-1">02 · LUNA</span><span id="beacon-2">03 · NOVA</span></div></div><div class="controls"><button id="left" aria-label="Left flipper">← <span>FLIP</span></button><button id="launch" aria-label="Hold to charge, release to launch">LAUNCH <span>HOLD SPACE</span></button><button id="right" aria-label="Right flipper">→ <span>FLIP</span></button></div><div class="toolbar"><button id="pause">Ⅱ Pause</button><button id="sound" aria-pressed="false">♪ Sound off</button><button id="fullscreen">⛶ Fullscreen</button><button id="help" aria-expanded="false">? Guide</button></div><div id="guide" hidden><p><b>← / A</b> left flipper · <b>→ / D</b> right flipper<br><b>Space</b> hold & release to launch · <b>N</b> nudge<br><b>P / Esc</b> pause · <b>M</b> sound</p><p>Hit all three gold beacons, then the observatory for 10,000 × your multiplier. Three nudges in quick succession tilt the table. Ball save lasts 10 seconds after a fresh launch.</p></div><p class="footnote">EST. SOMEWHERE BEYOND THE MOON &nbsp; ✦</p></aside>
+</main>
+<dialog id="leaderboard-dialog" aria-labelledby="leaderboard-title">
+  <div class="dialog-heading"><span class="label">VOYAGERS FROM EVERYWHERE</span><button id="close-leaderboard" aria-label="Close leaderboard">×</button></div>
+  <h2 id="leaderboard-title">The star chart</h2>
+  <p class="dialog-copy">Global leaderboard · best voyage per player</p>
+  <p id="leaderboard-status" role="status">Connecting to the observatory…</p>
+  <ol id="leaderboard-list"></ol>
+  <form id="score-form" hidden><label for="nickname">Your public callsign</label><input id="nickname" name="nickname" type="text" minlength="2" maxlength="16" pattern="[A-Za-z0-9 _-]{2,16}" autocomplete="nickname" placeholder="Star Voyager" required><p id="submit-summary"></p><button class="primary" id="submit-score" type="submit">Post this voyage ↗</button><small>Your callsign and score will be public. Use a nickname.</small></form>
+  <button id="refresh-leaderboard" class="quiet-button">Refresh scores</button>
+</dialog>
+</body></html>

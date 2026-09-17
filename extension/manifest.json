@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Bumpery",
+  "version": "0.4.0",
+  "description": "A little place for pinball. Original portrait tables, offline play, and global scores.",
+  "action": {
+    "default_title": "Open Bumpery"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  },
+  "icons": {
+    "128": "icons/icon-192.png"
+  }
+}

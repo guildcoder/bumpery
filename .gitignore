@@ -1,0 +1,15 @@
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+.vs/
+*.csproj
+*.sln
+
+# Local packaged build outputs
+extension/Build/
+extension/StreamingAssets/
+dist/

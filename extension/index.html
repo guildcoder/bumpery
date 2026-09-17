@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#191817"><meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Bumpery">
+<meta name="description" content="Bumpery. A little place for pinball. Play Starbound Parlor, save it to your Home Screen, and come back for more tables.">
+<title>Bumpery</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="manifest" href="app.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"><link rel="stylesheet" href="lobby.css">
+<script src="tables.js" defer></script><script src="lobby.js" defer></script><script src="pwa.js" defer></script>
+</head>
+<body class="lobby">
+<main class="arcade">
+  <header class="brand"><img src="icon.svg" width="52" height="52" alt=""><h1>Bumpery<span aria-hidden="true">.</span></h1></header>
+  <div id="table-list" class="table-list" aria-label="Pinball tables"></div>
+  <p class="coming">More tables are coming.</p>
+  <footer><span>Always free to play.</span><button id="install" type="button">Add to Home Screen ↗</button></footer>
+  <noscript><p>Turn on JavaScript to play pinball.</p></noscript>
+</main>
+<dialog id="welcome" aria-label="Welcome to Bumpery">
+  <img src="icons/icon-192.png" width="72" height="72" alt="Bumpery app icon">
+  <p id="welcome-main" class="welcome-main">Make yourself at home.</p>
+  <p id="welcome-copy">Starbound Parlor is your first table. More tables are coming.</p>
+  <p id="install-steps" hidden>In Safari, tap <b>Share</b> <span aria-hidden="true">↥</span>, then <b>Add to Home Screen</b> and <b>Add</b>. If shown, keep <b>Open as Web App</b> on.</p>
+  <p id="install-detail" hidden>Your own app icon. Full-screen play. Offline pinball after the first online visit.</p>
+  <button id="welcome-close" type="button">Let’s play ↗</button>
+</dialog>
+</body></html>
