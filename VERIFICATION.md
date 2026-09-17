@@ -1,5 +1,11 @@
 # Validation status
 
+## Published release
+- GitHub Actions deployment succeeded on main (run 35281973705).
+- Public HTTPS homepage, game, table registry, web manifest, Apple icon, configuration, and versioned service worker all returned HTTP 200.
+- Live browser: first welcome, lobby-to-table navigation, ball launch, and Supabase leaderboard display verified. The existing TEST FLIGHT score appears; no console errors.
+- Backend CORS preflight from the GitHub Pages origin returned HTTP 200 with required headers allowed.
+
 ## Passed locally
 - Version 0.4 Bumpery lobby at 390×844: first-visit welcome, original artwork/icon, more-tables notice, navigation to Starbound Parlor, and game start verified with no console errors. Four added tests cover installation state, registry assets, offline lobby assets, and independent table sessions/RPCs.
 - 33 Node tests: `node --test --test-isolation=none tests/modes.test.cjs tests/physics.test.cjs tests/leaderboard.test.cjs tests/pwa.test.cjs tests/platform.test.cjs`.
@@ -14,10 +20,10 @@
 - Mobile Chromium viewport 390×844: no horizontal/vertical document overflow, touch media query active, 58px flipper buttons, toolbar controls at least 44px tall, service-worker controller present, and no console errors.
 
 ## Pending
-- GitHub Pages deployment is authorized by the user; release verification will be recorded after publication.
+
 - Real two-device leaderboard validation (live API verification used two independent sessions on this computer).
-- In-app leaderboard display: the rebuilt preview reports offline, consistent with the earlier offline-browser test; the live API checks above succeeded outside that browser. Browser automation has no exposed network-emulation reset through its current control interface.
+
 - Real iPhone Safari and Add to Home Screen testing.
 - End-to-end offline browser navigation: automation stalled, although the offline worker's cache routing and isolation tests pass. Do not count the stalled browser operation as a pass.
 
-The game remains playable locally. The website build is in `dist/`; the source and deployment workflow are ready for the authorized publication.
+Published at https://guildcoder.github.io/bumpery/ from the public https://github.com/guildcoder/bumpery repository. The release uses main to satisfy the existing GitHub Pages environment branch rule.

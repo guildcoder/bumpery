@@ -4,6 +4,8 @@ A free, portrait-first pinball platform for iPhone, desktop browsers, and a loca
 
 Bumpery opens to a minimal table lobby. **Starbound Parlor** is the first table; more tables are coming. The platform has its own branding, app icon, and first-visit welcome. No additional tables are built yet. See [TABLES.md](TABLES.md) for the table registry and isolated save/leaderboard contract.
 
+Play at **https://guildcoder.github.io/bumpery/**. Source: https://github.com/guildcoder/bumpery.
+
 ## iPhone
 
 Open the GitHub Pages site in **Safari**, tap **Share → Add to Home Screen**, and tap **Add**. The original pinball icon launches the app without browser chrome. Load it online once to prepare offline play.
@@ -24,7 +26,7 @@ The visuals use original procedural Canvas artwork with metallic shading; this i
 
 ## GitHub Pages
 
-The included Actions workflow tests the game and builds the static site into `dist/`. Under **Settings → Pages**, set **Source** to **GitHub Actions**. Push to `main` or `master`, or run **Deploy Starbound Parlor** manually.
+The included Actions workflow tests the game and builds the static site into `dist/`. Under **Settings → Pages**, set **Source** to **GitHub Actions**. Push to `main` or `master`, or run **Deploy Bumpery** manually.
 
 All site URLs are relative, so it works at `https://guildcoder.github.io/bumpery/` as well as a custom domain. The deployment includes a Web App Manifest, 180px Apple touch icon, 192/512px app icons, a maskable icon, and a versioned offline service worker. Game updates activate after the previous app closes, avoiding mid-game changes.
 

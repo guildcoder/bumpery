@@ -1,4 +1,4 @@
-name: Deploy Starbound Parlor
+name: Deploy Bumpery
 on:
   push:
     branches: [main, master]
