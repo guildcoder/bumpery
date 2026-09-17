@@ -1,4 +1,4 @@
-param([ValidateSet('publish','status')][string]$Mode='status')
+param([ValidateSet('publish','status','deploy')][string]$Mode='status')
 $ErrorActionPreference='Stop'
 $repoRoot=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repoRoot
@@ -23,6 +23,18 @@ if($Mode -eq 'status'){
   $pages=GitHub 'GET' "/repos/$repo/pages"
   $runs=GitHub 'GET' "/repos/$repo/actions/runs?per_page=3"
   [pscustomobject]@{repository=$repository.html_url;site=$pages.html_url;status=$pages.status;runs=@($runs.workflow_runs|Select-Object id,status,conclusion,html_url)}|ConvertTo-Json -Depth 5
+  exit
+}
+if($Mode -eq 'deploy'){
+  $remote=git remote get-url origin
+  if($remote -ne 'https://github.com/guildcoder/bumpery.git'){throw 'Unexpected Git remote.'}
+  $branch=git branch --show-current
+  if($branch -ne 'main'){git branch -m main;if($LASTEXITCODE -ne 0){throw 'Could not align the release branch.'}}
+  git push -u origin main
+  if($LASTEXITCODE -ne 0){throw 'Could not push the release branch.'}
+  GitHub 'PATCH' "/repos/$repo" @{default_branch='main'}|Out-Null
+  GitHub 'POST' "/repos/$repo/actions/workflows/pages.yml/dispatches" @{ref='main'}|Out-Null
+  Write-Output 'Deployment dispatched from main, matching the existing Pages protection rule.'
   exit
 }
 # Creation is intentionally separate from replacing any pre-existing repository.
