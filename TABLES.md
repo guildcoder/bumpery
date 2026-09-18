@@ -1,6 +1,6 @@
 # Adding a table to Bumpery
 
-`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Starbound Parlor and Getaway ship today. The lobby announces more tables without showing unbuilt or selectable placeholders.
+`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Starbound Parlor, Getaway, and Elsewhere ship today. The lobby announces more tables without showing unbuilt or selectable placeholders.
 
 Each registry entry owns a stable `id`, display `name`, relative `href`, original `art`, unique `storageNamespace`, and unique server `rpcPrefix`. Keep these identifiers stable across renames. Starbound retains its existing `starbound.*` storage and `starbound_*` RPCs, preserving existing records.
 
@@ -21,3 +21,11 @@ Brand direction: an original pinball tavern, with warm cream, muted vermilion, c
 Getaway shares low-level collision and input conventions with Starbound, but owns its geometry, renderer, progression, chase state, storage namespace, and RPC family. `backend/getaway.sql` provisions its independent records. The hideout starts lit; three signals or a six-target bank relight it. Target banks advance gears (maximum 6) and scoring (maximum 5×).
 
 A capture freezes table simulation time, balls, flippers, and table timers. The chase has a 1.8-second introduction, continuous flipper steering, three damage points, one-second collision immunity, escalating traffic and pursuers, and a 90-second maximum before being boxed in. Survival pays 250 points per second, rounded to tenths, times the table multiplier. The 2.2-second result screen precedes ejection; a three-second ball save protects the return. Pause and backgrounding stop both simulations. Ranking duration includes chase time.
+
+## Elsewhere
+
+Original eerie table and 12-second horizontal story panorama. An optional original eight-note motif uses the gameplay synthesizer, starts after a user gesture, and follows the simulation clock. Launch skips the story; pause/backgrounding stops it. Reduced-motion mode replaces horizontal animation with discrete chapters and table spin with immediate inversion.
+
+Clock contacts become eligible after 45 seconds of table time. Each eligible contact has a 28% deterministic chance of warping, with a fourth-contact guarantee; each return starts a 65-second cooldown. A warp lasts 24 seconds (two-second turn, twenty seconds inverted, two-second return). Canonical physics is transformed together with the board, so ball, rails, upward screen gravity, and overhead flippers agree. Inputs swap internally to preserve screen-left and screen-right controls. Sideways gravity drifts, and six seconds run at half physics speed. Warped drains are rescued. A normal return grants 3,000 × multiplier and three seconds of ball save; tilt cancels without a reward.
+
+Uses independent elsewhere.* storage, elsewhere_* RPCs and elsewhere_private schema. `backend/elsewhere.sql` is the reproducible migration. No show footage, soundtrack, logo, or copied playfield art is included.

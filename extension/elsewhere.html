@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b1926"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Bumpery">
+<meta name="description" content="Eerie pinball beyond space and time. Rare warps invert the table and unravel gravity.">
+<link rel="manifest" href="app.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<title>Elsewhere · Bumpery</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="game.css"><link rel="stylesheet" href="layout.css"><link rel="stylesheet" href="elsewhere.css">
+<script src="tables.js" defer></script><script src="config.js" defer></script><script src="leaderboard.js" defer></script><script src="physics.js" defer></script><script src="renderer.js" defer></script><script src="elsewhere-physics.js" defer></script><script src="elsewhere-renderer.js" defer></script><script src="elsewhere-game.js" defer></script><script src="pwa.js" defer></script>
+</head>
+<body data-table="elsewhere"><main class="parlor"><button id="game-menu" type="button" aria-label="Game menu" aria-expanded="false" aria-controls="game-toolbar">☰</button>
+<header class="masthead"><a class="back-to-lobby" href="index.html">↖ Bumpery</a><h1>Elsewhere</h1></header>
+<section class="dashboard" aria-label="Scoreboard"><div class="score-block"><span class="label">YOUR SCORE</span><output id="score">000,000</output></div><div class="secondary"><div><span class="label">PERSONAL BEST</span><output id="best">000,000</output></div><div><span class="label">BALL</span><output id="ball-count">01 <small>/ 03</small></output></div></div></section>
+<section class="machine" aria-label="Pinball table"><canvas id="table" width="600" height="1100" aria-label="Eerie pinball. During a warp, flippers move to the top and gravity reverses. Use left and right arrows for flippers and hold then release Space to launch."></canvas><div id="overlay" class="overlay"><div class="overlay-card"><span class="label" id="overlay-kicker">A DOOR OUTSIDE OF TIME</span><h2 id="overlay-title">Somewhere.<br>Elsewhere.</h2><p id="overlay-copy">Three signs. A clock that runs backward.<br>A silver ball that remembers the way home.</p><label class="intro-audio"><input id="intro-audio" type="checkbox" checked> Play the pinball tune</label><button id="start" class="primary">Enter Elsewhere <span>↗</span></button><span class="overlay-hint">THREE BALLS · TWO REALITIES</span></div></div></section>
+<aside class="console"><div class="mission"><span class="label">THE OTHER SIDE <i></i></span><p id="message" role="status" aria-live="polite">You missed the last train.</p><div class="beacons" aria-label="Three signs"><span id="beacon-0">01 · DOOR</span><span id="beacon-1">02 · CLOCK</span><span id="beacon-2">03 · EYE</span></div></div><div class="controls"><button id="left" aria-label="Left flipper">← <span>FLIP</span></button><button id="launch" aria-label="Hold to charge, release to launch">LAUNCH <span>HOLD SPACE</span></button><button id="right" aria-label="Right flipper">→ <span>FLIP</span></button></div><div class="toolbar" id="game-toolbar"><button id="pause">Ⅱ Pause</button><button id="sound" aria-pressed="false">♪ Sound off</button><button id="fullscreen">⛶ Fullscreen</button><button id="help" aria-expanded="false">? Guide</button></div><div id="guide" hidden><p><b>← / A</b> left flipper · <b>→ / D</b> right flipper<br><b>Space</b> hold & release to launch · <b>N</b> nudge<br><b>P / Esc</b> pause · <b>M</b> sound</p><p>Light three signs, then shoot the clock. Rare clock hits warp the table into another reality. Three nudges in quick succession tilt the table. Ball save lasts 10 seconds after a fresh launch.</p></div><p class="footnote">BEYOND SPACE AND TIME</p></aside>
+</main>
+<dialog id="leaderboard-dialog" aria-labelledby="leaderboard-title">
+  <div class="dialog-heading"><span class="label">TRAVELERS FROM ELSEWHERE</span><button id="close-leaderboard" aria-label="Close leaderboard">×</button></div>
+  <h2 id="leaderboard-title">Elsewhere scores</h2>
+  <p class="dialog-copy">Global leaderboard · best run per player</p>
+  <p id="leaderboard-status" role="status">Connecting to the leaderboard…</p>
+  <ol id="leaderboard-list"></ol>
+  <form id="score-form" hidden><label for="nickname">Your public nickname</label><input id="nickname" name="nickname" type="text" minlength="2" maxlength="16" pattern="[A-Za-z0-9 _-]{2,16}" autocomplete="nickname" placeholder="Traveler" required><p id="submit-summary"></p><button class="primary" id="submit-score" type="submit">Post this run ↗</button><small>Your nickname and score will be public. Use a nickname.</small></form>
+  <button id="refresh-leaderboard" class="quiet-button">Refresh scores</button>
+</dialog>
+</body></html>

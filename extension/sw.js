@@ -1,7 +1,7 @@
 /* Generated deployments replace the version with a hash of the shipped assets. */
 const PREFIX='starbound-'+new URL(self.registration.scope).pathname+'-';
 const CACHE=PREFIX+'__BUILD_VERSION__';
-const ASSETS=['./','./index.html','./lobby.css','./lobby.js','./tables.js','./starbound.svg','./getaway.html','./getaway.css','./getaway-physics.js','./getaway-renderer.js','./getaway-game.js','./getaway.svg','./game.html','./game.css','./layout.css','./config.js','./leaderboard.js','./physics.js','./renderer.js','./showtime.js','./game.js','./pwa.js','./icon.svg','./app.webmanifest','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png'];
+const ASSETS=['./','./index.html','./lobby.css','./lobby.js','./tables.js','./starbound.svg','./getaway.html','./getaway.css','./getaway-physics.js','./getaway-renderer.js','./getaway-game.js','./getaway.svg','./elsewhere.html','./elsewhere.css','./elsewhere-physics.js','./elsewhere-renderer.js','./elsewhere-game.js','./elsewhere.svg','./game.html','./game.css','./layout.css','./config.js','./leaderboard.js','./physics.js','./renderer.js','./showtime.js','./game.js','./pwa.js','./icon.svg','./app.webmanifest','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
   // Waiting workers activate after the old app closes, never halfway through a game.
