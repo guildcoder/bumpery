@@ -8,7 +8,7 @@
 
 ## Passed locally
 - Version 0.4 Bumpery lobby at 390×844: first-visit welcome, original artwork/icon, more-tables notice, navigation to Starbound Parlor, and game start verified with no console errors. Four added tests cover installation state, registry assets, offline lobby assets, and independent table sessions/RPCs.
-- 33 Node tests: `node --test --test-isolation=none tests/modes.test.cjs tests/physics.test.cjs tests/leaderboard.test.cjs tests/pwa.test.cjs tests/platform.test.cjs`.
+- 36 Node tests: `node --test --test-isolation=none tests/modes.test.cjs tests/physics.test.cjs tests/leaderboard.test.cjs tests/pwa.test.cjs tests/platform.test.cjs`.
 - New mode coverage: Hyperspeed duration/protected drains/expiry, up to five balls, replenishment while a survivor remains, simultaneous last-ball drains, tilt/reset, and combo windows.
 - Version 0.3 browser preview at 390×844: game starts, cabinet display and full table are visible, no console errors. Actual iPhone touch/performance testing remains pending.
 - Supabase SQL deployment succeeded; anonymous player sessions and public configuration connected. Live API checks passed for public read, two independent player sessions, run creation, cross-player ownership rejection, accepted score submission, duplicate idempotency, and visibility to the second player. One `TEST FLIGHT` record (25 points) remains on the board.
@@ -33,3 +33,8 @@ Published at https://guildcoder.github.io/bumpery/ from the public https://githu
 - iPad 768×1024: table uses nearly the entire viewport height, with scores and thumb controls in side space. Landscape layout checked at 1024×768.
 - Opening the game menu pauses play; Resume closes it and restores play. Guide, sound, fullscreen/install, and scores remain accessible in the menu.
 - Safe-area padding and dynamic viewport height support Safari chrome and installed web apps; physical-device testing remains pending.
+
+## Timed Meteor Shower and escalating Hyperspeed
+- 35-second simulation-clock timer stops arrivals, retains surviving balls, and cannot be refreshed by jackpots. Multiple survivors must drain to one before a new shower can be earned.
+- Hyperspeed requires 1, 2, 3, … full six-target banks per successive activation. Difficulty and partial progress survive life loss; a new game resets them. Active Hyperspeed hits cannot pre-charge the next activation.
+- Three added regression tests cover expiry, re-entry, progressive unlocks, life loss, and restart. All 36 tests pass.

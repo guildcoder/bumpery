@@ -44,3 +44,32 @@ test('combo rewards require distinct shots and expire after four seconds',()=>{
 test('meteor arrival interval continues past five without exceeding the cap',()=>{
   const g=playing();g.activateMeteorShower();g.activateHyperspeed();advance(g,12);assert.equal(g.balls.length,5);g.nextMeteorAt=g.time;g.step();assert.equal(g.balls.length,5);
 });
+
+test('meteor arrivals end at 35 seconds without removing surviving balls or extending the timer',()=>{
+  const events=[],g=new Game(e=>events.push(e.type));g.start();g.launch();g.activateMeteorShower();g.spawnMeteor();
+  const end=g.meteorUntil;assert.equal(end-g.time,35);g.time+=10;assert.equal(g.activateMeteorShower(),false);assert.equal(g.meteorUntil,end);
+  g.balls.forEach((b,i)=>Object.assign(b,{x:250+i*80,y:600,vx:0,vy:0,shooter:false}));g.time=end-STEP/2;g.nextMeteorAt=end;g.step();
+  assert.equal(g.meteorShower,false);assert.equal(g.balls.length,2);assert.equal(g.ballNumber,1);assert.equal(g.spawnMeteor(),false);assert.equal(g.activateMeteorShower(),false);assert.equal(events.filter(e=>e==='meteorExpired').length,1);
+  g.step();assert.equal(events.filter(e=>e==='meteorExpired').length,1);
+  g.balls[0].y=1105;g.balls[0].vy=100;g.step();assert.equal(g.balls.length,1);assert.equal(g.ballNumber,1);assert.equal(g.activateMeteorShower(),true);
+});
+
+test('Hyperspeed needs one more complete distinct-target bank after every activation',()=>{
+  const g=playing();
+  for(let activation=1;activation<=4;activation++){
+    assert.equal(g.hyperBanksRequired,activation);
+    for(let bank=1;bank<=activation;bank++){
+      for(let i=0;i<5;i++){g.hitMeteorTarget(i);g.hitMeteorTarget(i);assert.equal(g.hyperspeed,false);}
+      g.hitMeteorTarget(5);assert.equal(g.hyperspeed,bank===activation);
+    }
+    assert.equal(g.hyperActivations,activation);assert.equal(g.hyperBanks,0);
+    for(let i=0;i<6;i++)g.hitMeteorTarget(i);assert.equal(g.targetLights.some(Boolean),false);
+    g.time=g.hyperUntil;
+  }
+});
+
+test('Hyperspeed difficulty and partial progress survive life loss, but restart clears them',()=>{
+  const g=playing();g.activateHyperspeed();g.time=g.hyperUntil;for(let i=0;i<6;i++)g.hitMeteorTarget(i);g.hitMeteorTarget(0);
+  g.drain();assert.equal(g.hyperBanksRequired,2);assert.equal(g.hyperBanks,1);assert.equal(g.targetLights[0],true);
+  g.start();assert.equal(g.hyperBanksRequired,1);assert.equal(g.hyperBanks,0);assert.equal(g.targetLights.some(Boolean),false);assert.equal(g.meteorUntil,0);
+});

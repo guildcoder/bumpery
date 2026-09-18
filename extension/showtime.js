@@ -18,8 +18,8 @@
       if(game.state==='ready'||game.state==='over')this.until=0;
       if(game.time<this.until)return;
       this.priority=0;this.container.dataset.clip=game.hyperspeed?'hyper':game.meteorShower?'meteor':'idle';
-      const title=game.hyperspeed?`HYPERSPEED · ${Math.ceil(game.hyperUntil-game.time)}s`:game.meteorShower?`METEOR SHOWER · ${game.balls.length}/5 BALLS`:`METEOR TARGETS · ${game.targetLights.filter(Boolean).length}/6`;
-      const subtitle=game.hyperspeed?(game.meteorShower?'SHIELD UP · METEOR SHOWER ACTIVE':'SHIELD UP · ALL DRAINS PROTECTED'):game.meteorShower?'KEEP ONE ALIVE · MORE ARE INBOUND':'COMPLETE THE BANK TO ENGAGE HYPERSPEED';
+      const title=game.hyperspeed?(game.meteorShower?`HYPER ${Math.ceil(game.hyperUntil-game.time)}s · METEORS ${Math.ceil(game.meteorUntil-game.time)}s`:`HYPERSPEED · ${Math.ceil(game.hyperUntil-game.time)}s`):game.meteorShower?`METEORS · ${Math.ceil(game.meteorUntil-game.time)}s · ${game.balls.length}/5`:`HYPER · ${game.hyperBanks*6+game.targetLights.filter(Boolean).length}/${game.hyperBanksRequired*6}`;
+      const subtitle=game.hyperspeed?(game.meteorShower?`SHIELD UP · METEORS ${Math.ceil(game.meteorUntil-game.time)}s`:'SHIELD UP · ALL DRAINS PROTECTED'):game.meteorShower?'KEEP ONE ALIVE · 35-SECOND SHOWER':`CLEAR ALL SIX TARGETS ${game.hyperBanksRequired} TIME${game.hyperBanksRequired===1?'':'S'} TO ENGAGE`;
       const text=title+subtitle;if(text!==this.lastText){this.title.textContent=title;this.subtitle.textContent=subtitle;this.lastText=text;}
     }
     reset(){this.until=0;this.priority=0;this.lastText='';}

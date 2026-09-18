@@ -10,7 +10,7 @@
   const renderer=new ParlorRenderer($('table'));
   const cabinet=document.createElement('div');cabinet.className='cabinet';cabinet.setAttribute('aria-label','Table modes and unlocks');document.querySelector('.mission').after(cabinet);
   const show=new CabinetShow(cabinet);
-  const modeGuide=document.createElement('p');modeGuide.textContent='HYPERSPEED: light all 6 meteor targets for 15 seconds of extreme speed and a drain shield (20 seconds at Level 2, 25 at Level 3+). METEOR SHOWER: complete an observatory jackpot to reach Level 2. A meteor drops every 2.25 seconds while at least one ball survives; maximum 5. Losing all balls ends the shower and costs one ball. Tilt cancels modes. COMBOS: hit 3–6 different shots within 4 seconds of each other. SKILL SHOT: charge the launcher above 80%, then hit a beacon within 5 seconds.';$('guide').append(modeGuide);
+  const modeGuide=document.createElement('p');modeGuide.textContent='HYPERSPEED: clear all 6 meteor targets once for the first activation, twice for the second, three times for the third, and so on within a game. Progress survives lost balls and resets with a new game. Each activation gives 15 seconds of extreme speed and a drain shield (20 seconds at Level 2, 25 at Level 3+). METEOR SHOWER: complete an observatory jackpot to reach Level 2. The shower lasts 35 seconds. A meteor drops every 2.25 seconds while at least one ball survives; maximum 5. At expiry, arrivals stop and existing balls stay in play. Another shower can be earned once only one ball remains. Losing all balls ends the shower and costs one ball. Tilt cancels modes. COMBOS: hit 3–6 different shots within 4 seconds of each other. SKILL SHOT: charge the launcher above 80%, then hit a beacon within 5 seconds.';$('guide').append(modeGuide);
   const leaderboard=new StarboundLeaderboard({...globalThis.STARBOUND_CONFIG,rpcPrefix:table.rpcPrefix,storageNamespace:table.storageNamespace});
   let runPromise=null,runGeneration=0,pendingScore=null;
   try{pendingScore=JSON.parse(read('starbound.pending','null'));}catch{}
@@ -35,7 +35,9 @@
       case 'jackpot':message(`Level ${game.level}! Jackpot collected. ${game.multiplier}× scoring.`);show.announce(`LEVEL ${game.level} · JACKPOT`,'COURSE COMPLETE · NEXT SECTOR UNLOCKED','level',game.time,3);[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.35),i*110));break;
       case 'hyperspeed':message(`Hyperspeed! ${event.duration} seconds. Drain shield online.`);show.announce('HYPERSPEED ENGAGED',`${event.duration} SECONDS · DRAIN SHIELD ONLINE`,'hyper',game.time,4);tone(170,.7,'triangle');break;
       case 'hyperspeedEnd':message('Normal speed restored. Drain shield offline.');show.announce('NORMAL SPACE','SHIELD OFFLINE · KEEP IT IN PLAY','level',game.time,4);tone(220,.3);break;
-      case 'meteorStart':message('Meteor Shower unlocked! Keep one ball alive.');show.announce('METEOR SHOWER','UP TO FIVE BALLS · KEEP ONE ALIVE','meteor',game.time,4);tone(110,.5,'triangle');break;
+      case 'meteorStart':message('Meteor Shower unlocked! Keep one ball alive.');show.announce('METEOR SHOWER','35 SECONDS · UP TO FIVE BALLS','meteor',game.time,4);tone(110,.5,'triangle');break;
+      case 'hyperProgress':show.announce('HYPER CHARGE',`BANKS ${event.completed}/${event.required} · CLEAR ALL SIX AGAIN`,'combo',game.time,2);break;
+      case 'meteorExpired':message('Meteor arrivals complete. Play out the remaining balls.');show.announce('SHOWER COMPLETE','NO MORE ARRIVALS · KEEP PLAYING','level',game.time,4);break;
       case 'meteorDrop':tone(180+event.count*90,.18,'triangle');break;
       case 'meteorEnd':message('Meteor Shower complete. Ready the next ball.');show.announce('SHOWER COMPLETE','THE NEXT VOYAGE AWAITS','level',game.time,3);break;
       case 'combo':show.announce(`${event.count}-SHOT COMBO`,`+${format(event.count*250*game.multiplier)} · KEEP THE CHAIN ALIVE`,'combo',game.time,1);tone(400+event.count*100,.12);break;

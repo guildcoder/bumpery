@@ -16,8 +16,8 @@ Use both thumbs on the left and right flipper buttons. Hold **Launch**, then rel
 
 Three balls per voyage. Light all three navigation beacons, then hit the observatory to collect a jackpot and raise the score multiplier. Fresh balls have a ten-second ball save. Three rapid nudges tilt the table. Keyboard: arrows/A/D for flippers, Space to launch, N to nudge, P/Escape to pause, M for sound.
 
-- **Hyperspeed:** clear all six meteor targets for extreme speed with every drain shielded. Lasts 15 seconds at level 1, 20 at level 2, and 25 from level 3 onward. Clearing the bank during Hyperspeed cannot extend its timer.
-- **Meteor Shower:** the first observatory jackpot reaches level 2 and starts falling meteors. A replacement arrives every 2.25 seconds while at least one ball survives, with at most five on the table. Losing all balls ends the shower and costs one life.
+- **Hyperspeed:** clear all six meteor targets once for the first activation, twice for the second, three times for the third, and so on during one game. Difficulty and partial progress survive life loss; starting a new game resets both. Earn extreme speed with every drain shielded. Lasts 15 seconds at level 1, 20 at level 2, and 25 from level 3 onward. Clearing the bank during Hyperspeed cannot extend its timer.
+- **Meteor Shower:** the first observatory jackpot reaches level 2 and starts falling meteors. Each shower lasts 35 seconds. A replacement arrives every 2.25 seconds while at least one ball survives, with at most five on the table. When time runs out, arrivals stop and existing balls remain in play. Another shower can be earned once only one ball remains. Losing all balls ends the shower and costs one life.
 - **Cabinet rewards:** chain distinct shots within four seconds for combos, build a six-shot super combo, or hit a beacon within five seconds of a strongly charged launch for a skill shot. Short original animations and sound cues celebrate rewards outside the playfield.
 
 Both modes can run together. Pause freezes their timers; tilt cancels protection and meteor replenishment.

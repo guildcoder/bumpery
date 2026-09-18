@@ -36,19 +36,29 @@
     get ball(){return this._activeBall||this.balls[0]||this._lastBall;}
     set ball(value){value.id??=++this.nextBallId;value.shooter??=value.x>530;this.balls=[value];this._lastBall=value;}
     get hyperspeed(){return this.hyperUntil>this.time&&!this.tilted;}
-    resetProgress(){this.level=1;this.targetLights=Array(6).fill(false);this.hyperUntil=0;this.hyperDuration=0;this.meteorShower=false;this.nextMeteorAt=0;this.meteorIndex=0;this.comboShots=[];this.comboUntil=0;this.skillShotUntil=0;}
-    endModes(){this.hyperUntil=0;this.meteorShower=false;this.nextMeteorAt=0;this.comboShots=[];this.comboUntil=0;this.skillShotUntil=0;}
+    get hyperBanksRequired(){return this.hyperActivations+1;}
+    resetProgress(){this.hyperActivations=0;this.hyperBanks=0;this.meteorUntil=0;this.level=1;this.targetLights=Array(6).fill(false);this.hyperUntil=0;this.hyperDuration=0;this.meteorShower=false;this.nextMeteorAt=0;this.meteorIndex=0;this.comboShots=[];this.comboUntil=0;this.skillShotUntil=0;}
+    endModes(){this.meteorUntil=0;this.hyperUntil=0;this.meteorShower=false;this.nextMeteorAt=0;this.comboShots=[];this.comboUntil=0;this.skillShotUntil=0;}
     activateHyperspeed(){
       if(this.state!=='playing'||this.tilted||this.hyperspeed)return false;
       this.hyperDuration=15+Math.min(this.level-1,2)*5;this.hyperUntil=this.time+this.hyperDuration;
-      this.targetLights.fill(false);this.emit('hyperspeed',{duration:this.hyperDuration});return true;
+      this.hyperActivations++;this.hyperBanks=0;this.targetLights.fill(false);this.emit('hyperspeed',{duration:this.hyperDuration});return true;
+    }
+    hitMeteorTarget(index){
+      if(this.state!=='playing'||this.tilted||this.hyperspeed||this.targetLights[index])return;
+      this.targetLights[index]=true;
+      if(this.targetLights.every(Boolean)){
+        this.hyperBanks++;this.targetLights.fill(false);
+        if(this.hyperBanks>=this.hyperBanksRequired)this.activateHyperspeed();
+        else this.emit('hyperProgress',{completed:this.hyperBanks,required:this.hyperBanksRequired});
+      }
     }
     activateMeteorShower(){
-      if(this.state!=='playing'||this.tilted||this.meteorShower)return false;
-      this.meteorShower=true;this.nextMeteorAt=this.time+.65;this.saveUntil=0;this.emit('meteorStart');return true;
+      if(this.state!=='playing'||this.tilted||this.meteorShower||this.balls.length>1)return false;
+      this.meteorShower=true;this.meteorUntil=this.time+35;this.nextMeteorAt=this.time+.65;this.saveUntil=0;this.emit('meteorStart');return true;
     }
     spawnMeteor(){
-      if(!this.meteorShower||!this.balls.length||this.balls.length>=5||this.tilted)return false;
+      if(!this.meteorShower||this.time>=this.meteorUntil||!this.balls.length||this.balls.length>=5||this.tilted)return false;
       const lanes=[250,345,135,450],index=this.meteorIndex++;
       const ball={id:++this.nextBallId,x:lanes[index%lanes.length],y:88,vx:index%2?110:-110,vy:260,r:10,shooter:false,meteor:true};
       this.balls.push(ball);this.emit('meteorDrop',{x:ball.x,y:ball.y,count:this.balls.length});return true;
@@ -131,6 +141,7 @@
       this.time+=dt;this.tilt=Math.max(0,this.tilt-dt*.12);
       if(wasHyper&&!this.hyperspeed){for(const b of this.balls){const speed=Math.hypot(b.vx,b.vy);if(speed>1500){b.vx*=1500/speed;b.vy*=1500/speed;}}this.emit('hyperspeedEnd');}
       if(this.time>this.comboUntil)this.comboShots=[];
+      if(this.meteorShower&&this.time>=this.meteorUntil){this.meteorShower=false;this.nextMeteorAt=0;this.emit('meteorExpired');}
       this.flippers.forEach((f,i)=>{
         const pressed=(i===0?this.input.left:this.input.right)&&!this.tilted;
         const target=i===0?(pressed?-.48:.43):(pressed?Math.PI+.48:Math.PI-.43);
@@ -175,7 +186,7 @@
       if(b.x<510)b.shooter=false;
       rails.forEach((r,i)=>this.segment(r.a,r.b,r.kind==='sling'?7:5,r.kind==='sling'?.85:.8,null,r.kind==='sling','rail'+i));
       bumpers.forEach((c,i)=>this.circle(c,.94,780,'bumper'+i,100));
-      targets.forEach((c,i)=>{if(this.circle(c,.9,480,'target'+i,200)&&!this.tilted&&!this.hyperspeed){this.targetLights[i]=true;if(this.targetLights.every(Boolean))this.activateHyperspeed();}});
+      targets.forEach((c,i)=>{if(this.circle(c,.9,480,'target'+i,200))this.hitMeteorTarget(i);});
       beacons.forEach((c,i)=>{
         if(this.circle(c,.9,280,'beacon'+i,350)&&!this.tilted){this.lit[i]=true;this.emit('beacon',{index:i,all:this.lit.every(Boolean)});if(this.skillShotUntil>this.time){this.skillShotUntil=0;this.addScore(1000,c.x,c.y);this.emit('skillShot');}}
       });
