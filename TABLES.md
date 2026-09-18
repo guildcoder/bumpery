@@ -1,6 +1,6 @@
 # Adding a table to Bumpery
 
-`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Starbound Parlor, Getaway, and Elsewhere ship today. The lobby announces more tables without showing unbuilt or selectable placeholders.
+`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Starbound Parlor, Getaway, Elsewhere, Deadwood, and The Old Course ship today. The lobby announces more tables without showing unbuilt or selectable placeholders.
 
 Each registry entry owns a stable `id`, display `name`, relative `href`, original `art`, unique `storageNamespace`, and unique server `rpcPrefix`. Keep these identifiers stable across renames. Starbound retains its existing `starbound.*` storage and `starbound_*` RPCs, preserving existing records.
 
@@ -29,3 +29,13 @@ Original eerie table and 12-second horizontal story panorama. An optional origin
 Clock contacts become eligible after 45 seconds of table time. Each eligible contact has a 28% deterministic chance of warping, with a fourth-contact guarantee; each return starts a 65-second cooldown. A warp lasts 24 seconds (two-second turn, twenty seconds inverted, two-second return). Canonical physics is transformed together with the board, so ball, rails, upward screen gravity, and overhead flippers agree. Inputs swap internally to preserve screen-left and screen-right controls. Sideways gravity drifts, and six seconds run at half physics speed. Warped drains are rescued. A normal return grants 3,000 × multiplier and three seconds of ball save; tilt cancels without a reward.
 
 Uses independent elsewhere.* storage, elsewhere_* RPCs and elsewhere_private schema. `backend/elsewhere.sql` is the reproducible migration. No show footage, soundtrack, logo, or copied playfield art is included.
+
+## Deadwood
+
+Shares proven base collisions with Getaway, but owns Western art and a deterministic reaction duel. Shoot the lit saloon pocket. After a three-second countdown and unpredictable 0.35–1.25-second pause, FIRE starts a 900ms reaction window. Each win multiplies the next window by 0.84 down to 180ms. A fresh flipper press is required; early presses lose and holding cannot auto-win. Wins pay 1,500 plus a speed bonus in multiples of 25. The table freezes until failure, banked wins pay once, and the ball returns with a save. Independent deadwood records and RPCs.
+
+## The Old Course
+
+Nine original Scottish-inspired links holes, not a recreation of a real course. Uses independent top-down golf simulation with no downward pinball gravity. Left/right aims a hickory flipper at the current lie; Club cycles Brassie, Iron, Putter; hold/release Strike controls power. Friction differs on fairway, green, rough and sand. Wind affects longer shots. Water and out-of-bounds add one penalty and return to the previous lie. Gentle contact sinks a putt; fast passes do not. Ten strokes automatically picks up a hole. Next/Finish advances the scorecard; only completed rounds update personal records or become postable.
+
+Ranking encodes completed nine-hole strokes as `(162 - strokes) * 25` so the existing descending-score API puts the lowest stroke count first. The UI decodes it and displays only strokes; SQL accepts only 1,800–3,825 in multiples of 25 (90–9 strokes). Own oldcourse namespace, private records and RPCs. No golf score is mixed with pinball points.

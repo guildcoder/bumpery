@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b1926"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Bumpery">
+<meta name="description" content="An original nine-hole Scottish-inspired links round, played with a hickory flipper and ball.">
+<link rel="manifest" href="app.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<title>The Old Course · Bumpery</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="game.css"><link rel="stylesheet" href="layout.css"><link rel="stylesheet" href="oldcourse.css">
+<script src="tables.js" defer></script><script src="config.js" defer></script><script src="leaderboard.js" defer></script><script src="physics.js" defer></script><script src="renderer.js" defer></script><script src="oldcourse-physics.js" defer></script><script src="oldcourse-renderer.js" defer></script><script src="oldcourse-game.js" defer></script><script src="pwa.js" defer></script>
+</head>
+<body data-table="oldcourse"><main class="parlor"><button id="game-menu" type="button" aria-label="Game menu" aria-expanded="false" aria-controls="game-toolbar">☰</button>
+<header class="masthead"><a class="back-to-lobby" href="index.html">↖ Bumpery</a><h1>The Old Course</h1></header>
+<section class="dashboard" aria-label="Scoreboard"><div class="score-block"><span class="label">STROKES</span><output id="score">0</output></div><div class="secondary"><div><span class="label">BEST ROUND</span><output id="best">0</output></div><div><span class="label">HOLE</span><output id="ball-count">01 <small>/ 09</small></output></div></div></section>
+<section class="machine" aria-label="Pinball table"><canvas id="table" width="600" height="1100" aria-label="Golf. Aim with left and right, C changes club, hold and release Space to strike."></canvas><div id="overlay" class="overlay"><div class="overlay-card"><span class="label" id="overlay-kicker">A PROPER ROUND</span><h2 id="overlay-title">The links await.</h2><p id="overlay-copy">Aim your hickory flipper. Choose your club.<br>Hold to draw back. Release to strike.</p><button id="start" class="primary">To the first tee <span>↗</span></button><span class="overlay-hint">NINE HOLES · FEWEST STROKES WINS</span></div></div></section>
+<aside class="console"><div class="mission"><span class="label">THE CADDIE <i></i></span><p id="message" role="status" aria-live="polite">The morning is yours.</p><div class="beacons" aria-label="Course landmarks"><span id="beacon-0">01 · NORTH</span><span id="beacon-1">02 · DOCKS</span><span id="beacon-2">03 · SOUTH</span></div></div><div class="controls"><button id="left" aria-label="Aim left">← <span>AIM</span></button><button id="launch" aria-label="Hold to draw back, release to strike">STRIKE <span>HOLD SPACE</span></button><button id="right" aria-label="Aim right">→ <span>AIM</span></button></div><div class="toolbar" id="game-toolbar"><button id="pause">Ⅱ Pause</button><button id="sound" aria-pressed="false">♪ Sound off</button><button id="fullscreen">⛶ Fullscreen</button><button id="help" aria-expanded="false">? Guide</button></div><div id="guide" hidden><p><b>← / A</b> aim left · <b>→ / D</b> aim right<br><b>Space</b> hold & release to strike · <b>C</b> change club<br><b>P / Esc</b> pause · <b>M</b> sound</p><p>Choose your club, aim toward the flag, then hold and release Strike. Your ball must enter the hole gently. Lowest nine-hole stroke total wins.</p></div><p class="footnote">HICKORY · HEATHER · HONOUR</p></aside>
+</main>
+<dialog id="leaderboard-dialog" aria-labelledby="leaderboard-title">
+  <div class="dialog-heading"><span class="label">THE CLUBHOUSE</span><button id="close-leaderboard" aria-label="Close leaderboard">×</button></div>
+  <h2 id="leaderboard-title">The Old Course scores</h2>
+  <p class="dialog-copy">Global leaderboard · lowest completed round per player</p>
+  <p id="leaderboard-status" role="status">Connecting to the leaderboard…</p>
+  <ol id="leaderboard-list"></ol>
+  <form id="score-form" hidden><label for="nickname">Your public nickname</label><input id="nickname" name="nickname" type="text" minlength="2" maxlength="16" pattern="[A-Za-z0-9 _-]{2,16}" autocomplete="nickname" placeholder="Old Tom" required><p id="submit-summary"></p><button class="primary" id="submit-score" type="submit">Post this round ↗</button><small>Your nickname and stroke total will be public. Use a nickname.</small></form>
+  <button id="refresh-leaderboard" class="quiet-button">Refresh scores</button>
+</dialog>
+</body></html>

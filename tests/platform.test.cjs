@@ -1,7 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const tables=require('../extension/tables.js'),{welcomeState}=require('../extension/pwa.js');
-test('three tables are shipped; registered table routes and art exist',()=>{
-  assert.equal(tables.length,3);assert.equal(tables[0].name,'Starbound Parlor');
+test('five tables are shipped; registered table routes and art exist',()=>{
+  assert.equal(tables.length,5);assert.equal(tables[0].name,'Starbound Parlor');
   for(const key of ['id','href','storageNamespace','rpcPrefix'])assert.equal(new Set(tables.map(t=>t[key])).size,tables.length);
   for(const table of tables){for(const asset of [table.href,table.art])assert.ok(fs.existsSync('extension/'+asset));assert.match(fs.readFileSync('extension/'+table.href,'utf8'),new RegExp('data-table="'+table.id+'"'));}
   const manifest=JSON.parse(fs.readFileSync('extension/app.webmanifest'));assert.equal(manifest.name,'Bumpery');assert.equal(manifest.start_url,'./index.html');

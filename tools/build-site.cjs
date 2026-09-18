@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const source=path.resolve(__dirname,'../extension'),output=path.resolve(__dirname,'../dist');
 fs.mkdirSync(output,{recursive:true});
-const files=['index.html','lobby.css','lobby.js','tables.js','starbound.svg','getaway.html','getaway.css','getaway-physics.js','getaway-renderer.js','getaway-game.js','getaway.svg','elsewhere.html','elsewhere.css','elsewhere-physics.js','elsewhere-renderer.js','elsewhere-game.js','elsewhere.svg','game.html','game.css','layout.css','config.js','leaderboard.js','physics.js','renderer.js','showtime.js','game.js','pwa.js','icon.svg','app.webmanifest','sw.js'];
+const files=['index.html','lobby.css','lobby.js','tables.js','starbound.svg','getaway.html','getaway.css','getaway-physics.js','getaway-renderer.js','getaway-game.js','getaway.svg','elsewhere.html','elsewhere.css','elsewhere-physics.js','elsewhere-renderer.js','elsewhere-game.js','elsewhere.svg','deadwood.html','deadwood.css','deadwood-physics.js','deadwood-renderer.js','deadwood-game.js','deadwood.svg','oldcourse.html','oldcourse.css','oldcourse-physics.js','oldcourse-renderer.js','oldcourse-game.js','oldcourse.svg','game.html','game.css','layout.css','config.js','leaderboard.js','physics.js','renderer.js','showtime.js','game.js','pwa.js','icon.svg','app.webmanifest','sw.js'];
 for(const file of files)fs.copyFileSync(path.join(source,file),path.join(output,file));
 fs.cpSync(path.join(source,'icons'),path.join(output,'icons'),{recursive:true});
 fs.writeFileSync(path.join(output,'.nojekyll'),'');
