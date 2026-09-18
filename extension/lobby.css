@@ -9,3 +9,4 @@ dialog{width:min(90vw,420px);max-height:90dvh;overflow:auto;border:1px solid #79
 [hidden]{display:none!important}@media(max-width:420px){.brand{margin-bottom:22px}.brand img{width:42px;height:42px}h1{letter-spacing:-3px}.table-card{border-radius:85px 85px 12px 12px}.table-label{padding:19px 16px;gap:10px}.play{padding:11px 17px}footer{font-size:11px}}
 @media(min-width:900px) and (min-height:1000px){.arcade{padding-top:80px}.brand{margin-bottom:46px}.table-card>img{height:56dvh;max-height:780px}.coming{margin:32px 0}}
 @media(prefers-reduced-motion:reduce){.table-card{transition:none}.table-card:hover{transform:none}}
+@media(min-width:760px){.arcade{width:min(100%,1100px);max-width:1100px}.table-list{grid-template-columns:repeat(2,minmax(0,1fr))}.table-label{padding:20px 18px}.table-label strong{font-size:27px}.play{padding:10px 17px}}

@@ -1,0 +1,5 @@
+body[data-table="getaway"] {background:#140e12;--gold:#efc583;--cream:#ffe3bd;--teal:#ff6652}
+body[data-table="getaway"] .primary {background:#e64132;color:#fff4dd}
+body[data-table="getaway"] .cabinet {color:#f2c887;background:#21191c;font:600 12px monospace;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px}
+body[data-table="getaway"] .controls button.held {background:#d54132;color:white}
+body[data-table="getaway"] button:disabled {opacity:.4}

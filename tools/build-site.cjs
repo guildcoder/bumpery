@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const source=path.resolve(__dirname,'../extension'),output=path.resolve(__dirname,'../dist');
 fs.mkdirSync(output,{recursive:true});
-const files=['index.html','lobby.css','lobby.js','tables.js','starbound.svg','game.html','game.css','layout.css','config.js','leaderboard.js','physics.js','renderer.js','showtime.js','game.js','pwa.js','icon.svg','app.webmanifest','sw.js'];
+const files=['index.html','lobby.css','lobby.js','tables.js','starbound.svg','getaway.html','getaway.css','getaway-physics.js','getaway-renderer.js','getaway-game.js','getaway.svg','game.html','game.css','layout.css','config.js','leaderboard.js','physics.js','renderer.js','showtime.js','game.js','pwa.js','icon.svg','app.webmanifest','sw.js'];
 for(const file of files)fs.copyFileSync(path.join(source,file),path.join(output,file));
 fs.cpSync(path.join(source,'icons'),path.join(output,'icons'),{recursive:true});
 fs.writeFileSync(path.join(output,'.nojekyll'),'');

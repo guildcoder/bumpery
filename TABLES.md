@@ -1,6 +1,6 @@
 # Adding a table to Bumpery
 
-`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Only Starbound Parlor ships today. The lobby announces more tables without showing unbuilt or selectable placeholders.
+`extension/index.html` is the platform entry point. `extension/tables.js` is the immutable table catalog used by the lobby and game initialization. Starbound Parlor and Getaway ship today. The lobby announces more tables without showing unbuilt or selectable placeholders.
 
 Each registry entry owns a stable `id`, display `name`, relative `href`, original `art`, unique `storageNamespace`, and unique server `rpcPrefix`. Keep these identifiers stable across renames. Starbound retains its existing `starbound.*` storage and `starbound_*` RPCs, preserving existing records.
 
@@ -15,3 +15,9 @@ To add a future table:
 The first-visit welcome belongs to the platform (`bumpery.welcome.v1`). Installation uses the platform name/icon/start page. Game saves and anonymous sessions belong to each table. Browsers control Home Screen installation; dismissing the welcome never claims that installation occurred. If storage is unavailable the welcome may reappear, but gameplay still works.
 
 Brand direction: an original pinball tavern, with warm cream, muted vermilion, charcoal, and chrome. Flippers Tavern in Lubbock was a mood reference only; no photos, logos, menu content, or machine artwork from it are shipped. The platform art and icon are original SVG/Node geometry.
+
+## Getaway
+
+Getaway shares low-level collision and input conventions with Starbound, but owns its geometry, renderer, progression, chase state, storage namespace, and RPC family. `backend/getaway.sql` provisions its independent records. The hideout starts lit; three signals or a six-target bank relight it. Target banks advance gears (maximum 6) and scoring (maximum 5×).
+
+A capture freezes table simulation time, balls, flippers, and table timers. The chase has a 1.8-second introduction, continuous flipper steering, three damage points, one-second collision immunity, escalating traffic and pursuers, and a 90-second maximum before being boxed in. Survival pays 250 points per second, rounded to tenths, times the table multiplier. The 2.2-second result screen precedes ejection; a three-second ball save protects the return. Pause and backgrounding stop both simulations. Ranking duration includes chase time.
