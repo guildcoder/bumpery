@@ -44,3 +44,13 @@ Getaway second-table release: original road/city artwork and poster; separate Su
 Elsewhere third-table release: seven new simulation tests cover story finish/skip and note timing, rare warp eligibility/cooldown, frozen turn transitions, screen-side control mapping, lateral gravity/time slip, exactly-once return payout, tilt cancellation, clock capture, launcher strengths, and extended warped play. Phone browser preview verified the scrolling intro and overhead flippers; local-only warp fixture is excluded from deployment. Reduced-motion handling is implemented in renderer. Audio is synthesized after the Enter gesture; actual iPhone speaker playback is not hardware-verified.
 
 Deadwood and The Old Course: added deterministic tests for early/late/held draws, opponent escalation, paused physical table and once-only payout; golf aiming, charge/release, clubs, penalties, gentle cups, nine-hole completion, ten-stroke pickup and a simulated round. Phone previews verified showdown perspective, golf club selection/strike, scorecard, and Next hole. Independent scoreboards provisioned with private tables and ownership-checked RPCs. Golf display decodes the ranking score to strokes. No physical iPhone hardware test was performed.
+
+## Four-table expansion (October 2026)
+
+71 automated tests pass, including twelve new tests for all four tables: launch paths, finite long play, score increments, timed mode expiry/re-entry, tilt cancellation, distinct-target triggers, multiball save/drain behavior, water gravity/current, and dragon escalation. Local build includes all vendor modules and license in its offline cache.
+
+Neon Royale was visually checked with WebGL active at 390×844 and 820×1180, with player and overhead cameras, launch, scoring and pause/menu controls. No WebGL console errors were reported. This is browser viewport testing, not physical iPhone/iPad performance certification. Photorealism and real-device frame rate are not verified.
+
+New leaderboard migrations are prepared; deployment is pending renewed Supabase browser sign-in.
+
+All three additional Canvas tables were visually reviewed at 390×844; Undertow and Dragonfire launch controls were exercised. No page JavaScript errors appeared. Supabase requires user sign-in before the four new migrations can be applied; gameplay and local best scores remain available and the UI explains unavailable global scores.

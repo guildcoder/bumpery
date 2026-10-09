@@ -39,3 +39,14 @@ Shares proven base collisions with Getaway, but owns Western art and a determini
 Nine original Scottish-inspired links holes, not a recreation of a real course. Uses independent top-down golf simulation with no downward pinball gravity. Left/right aims a hickory flipper at the current lie; Club cycles Brassie, Iron, Putter; hold/release Strike controls power. Friction differs on fairway, green, rough and sand. Wind affects longer shots. Water and out-of-bounds add one penalty and return to the previous lie. Gentle contact sinks a putt; fast passes do not. Ten strokes automatically picks up a hole. Next/Finish advances the scorecard; only completed rounds update personal records or become postable.
 
 Ranking encodes completed nine-hole strokes as `(162 - strokes) * 25` so the existing descending-score API puts the lowest stroke count first. The UI decodes it and displays only strokes; SQL accepts only 1,800–3,825 in multiples of 25 (90–9 strokes). Own oldcourse namespace, private records and RPCs. No golf score is mixed with pinball points.
+
+## Four-table expansion
+
+Neon Royale, Undertow, Sugar Rush, and Dragonfire share `expansion-physics.js` and a controller while owning their configurations, artwork, records, and mode rules. The catalog now contains nine games.
+
+- Neon Royale: three lamps then centre jackpot starts 20-second Last Call, up to three balls and double scoring. Actual Three.js r180 WebGL cabinet, procedural artwork, chrome/rubber/wood/glass materials, shadows, two camera views, and a labelled 2D fallback. Physics remains on a 2D plane; this is not a volumetric ramp simulation. Rendering is capped at 1.5 device pixel ratio for mobile cost. Vendor files are bundled and cached with their MIT license.
+- Undertow: three lamps and centre jackpot starts 22-second Rising Tide, reduced gravity, stronger drag, lateral current and double scoring.
+- Sugar Rush: six distinct targets start 25-second Sugar Storm, three balls and double scoring. Lamps and centre collect a separate jackpot.
+- Dragonfire: lamps and centre awaken a dragon for 25 seconds. Six bumper hits defeat the first dragon for 12,000 times multiplier; later dragons require two additional hits.
+
+All four raise the multiplier through target banks, cap it at 5, use the shared pause/background/tilt protections, and preserve existing balls when a timed mode ends. Multiball does not replenish. The first five seconds of a mode rescue drains; fresh launch saves may last longer. The new SQL files provision isolated RPC families. Deploy these migrations in the existing Supabase project before promising global score submission.
