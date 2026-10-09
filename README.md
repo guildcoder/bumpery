@@ -2,7 +2,7 @@
 
 A free, portrait-first pinball platform for iPhone, desktop browsers, and a local Chrome extension. Original artwork, no Unity download, and no paid game assets. Neon Royale uses a locally bundled copy of Three.js r180 (MIT; license in `extension/vendor/THREE-LICENSE.txt`).
 
-Bumpery opens to a minimal lobby with nine games: Starbound Parlor, Getaway, Elsewhere, Deadwood, The Old Course, Neon Royale, Undertow, Sugar Rush, and Dragonfire. The platform has its own branding, app icon, and first-visit welcome. See [TABLES.md](TABLES.md) for the table registry and isolated save/leaderboard contract.
+Bumpery opens to a minimal lobby with ten games: Starbound Parlor, Getaway, Elsewhere, Deadwood, The Old Course, Neon Royale, Undertow, Sugar Rush, Dragonfire, and Eschaton. The platform has its own branding, app icon, and first-visit welcome. See [TABLES.md](TABLES.md) for the table registry and isolated save/leaderboard contract.
 
 Play at **https://guildcoder.github.io/bumpery/**. Source: https://github.com/guildcoder/bumpery.
 
@@ -22,7 +22,7 @@ Three balls per voyage. Light all three navigation beacons, then hit the observa
 
 Both modes can run together. Pause freezes their timers; tilt cancels protection and meteor replenishment.
 
-Eight games use original Canvas artwork. Neon Royale uses a real 3D WebGL cabinet with physical materials, reflections, shadows, glass, and player/overhead cameras over the same deterministic playfield simulation. It falls back to a labelled 2D view if WebGL initialization fails. The games do not use movie assets, characters, dialogue, or music.
+Eight games use original Canvas artwork. Neon Royale and Eschaton use real 3D WebGL cabinets with physical materials, reflections, shadows, glass, and player/overhead cameras over the same deterministic playfield simulation. It falls back to a labelled 2D view if WebGL initialization fails. The games do not use movie assets, characters, dialogue, or music.
 
 ## GitHub Pages
 

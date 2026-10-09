@@ -54,3 +54,7 @@ Neon Royale was visually checked with WebGL active at 390×844 and 820×1180, wi
 New leaderboard migrations are prepared; deployment is pending renewed Supabase browser sign-in.
 
 All three additional Canvas tables were visually reviewed at 390×844; Undertow and Dragonfire launch controls were exercised. No page JavaScript errors appeared. Supabase requires user sign-in before the four new migrations can be applied; gameplay and local best scores remain available and the UI explains unavailable global scores.
+
+## Eschaton
+
+78 automated tests pass. New tests cover entry direction, elevated travel and ejection, one-time ramp rewards, locked gates and escalating bank requirements, core capture and exactly-once payout, three-ball release, elevation-aware collision exclusion, tilt protection, finite sampled geometry, naturally reachable left/right ramps, long play, and explicit offline assets. Local WebGL rendering and ball-on-bridge/captured-core states were reviewed at 390×844. Browser automation initially encountered a double-boot defect; corrected by making the module the sole boot entry point. Later browser attachment timeouts recovered successfully. No physical iOS device performance or audible speaker test was performed. Eschaton's independent global leaderboard remains pending Supabase sign-in and migration.

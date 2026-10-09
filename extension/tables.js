@@ -7,6 +7,7 @@
     Object.freeze({id:'elsewhere',name:'Elsewhere',href:'elsewhere.html',art:'elsewhere.svg',storageNamespace:'elsewhere',rpcPrefix:'elsewhere'}),
     Object.freeze({id:'deadwood',name:'Deadwood',href:'deadwood.html',art:'deadwood.svg',storageNamespace:'deadwood',rpcPrefix:'deadwood'}),
     Object.freeze({id:'oldcourse',name:'The Old Course',href:'oldcourse.html',art:'oldcourse.svg',storageNamespace:'oldcourse',rpcPrefix:'oldcourse'}),
+    Object.freeze({id:'eschaton',name:'Eschaton',href:'eschaton.html',art:'eschaton.svg',storageNamespace:'eschaton',rpcPrefix:'eschaton'}),
     Object.freeze({id:'neonroyale',name:'Neon Royale',href:'neonroyale.html',art:'neonroyale.svg',storageNamespace:'neonroyale',rpcPrefix:'neonroyale'}),
     Object.freeze({id:'undertow',name:'Undertow',href:'undertow.html',art:'undertow.svg',storageNamespace:'undertow',rpcPrefix:'undertow'}),
     Object.freeze({id:'sugarrush',name:'Sugar Rush',href:'sugarrush.html',art:'sugarrush.svg',storageNamespace:'sugarrush',rpcPrefix:'sugarrush'}),

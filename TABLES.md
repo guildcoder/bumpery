@@ -50,3 +50,11 @@ Neon Royale, Undertow, Sugar Rush, and Dragonfire share `expansion-physics.js` a
 - Dragonfire: lamps and centre awaken a dragon for 25 seconds. Six bumper hits defeat the first dragon for 12,000 times multiplier; later dragons require two additional hits.
 
 All four raise the multiplier through target banks, cap it at 5, use the shared pause/background/tilt protections, and preserve existing balls when a timed mode ends. Multiball does not replenish. The first five seconds of a mode rescue drains; fresh launch saves may last longer. The new SQL files provision isolated RPC families. Deploy these migrations in the existing Supabase project before promising global score submission.
+
+## Eschaton
+
+Original cosmic-destruction 3D table with three Catmull-Rom ramp routes, shared route samples for the meshes and ball positions, transparent decks, raised crossing bridges, six stand-up reactor buttons, pivoting gates, and a world-eating mechanical core. Ground play uses the existing collision simulation; ramp traversal is guided along an elevated track over 2.5–3.4 seconds, not a general-purpose rigid-body ramp solver. Elevated and captured balls do not collide with ground traffic.
+
+Complete the six-target bank to open World Breaker. Finish all three distinct ramps and shoot the core to capture the ball for 2.2 seconds, score 15,000 times worlds times multiplier, consume a planet, and eject into 35-second three-ball Annihilation. Active-mode ramps award 5,000 doubled by the mode and multiplied by the table multiplier. Gates require cumulative 1, 3, 6, ... banks across worlds. Repeated routes do not substitute for distinct completions. Tilt prevents mode activation, scoring and ramp progress; normal drains and restarts follow the shared rules.
+
+Original geometry, procedural art, synthesized chimes/buzzers and reactive lights; no Marvel character models, branding, dialogue or music. Neon Royale's renderer now accepts a theme and an optional render hook; its default behavior is retained. Separate `eschaton.*` saves and prepared `backend/eschaton.sql` migration. Server activation still needs the user's Supabase sign-in.
